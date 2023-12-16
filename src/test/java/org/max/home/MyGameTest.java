@@ -6,16 +6,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+public class MyGameTest {
 
-/**
- * Тест кейс для тестирования методов порадокса
- */
-public class GameTest {
-
-    static List<Door> doors;
+    private List<Door> doors;
 
     @BeforeEach
-    void initDoors () {
+    void setUp () {
         doors = new ArrayList<>();
         doors.add(new Door(true));
         doors.add(new Door(false));
@@ -23,9 +19,9 @@ public class GameTest {
     }
 
     @Test
-    void checkNotRiskWin () {
+    void testNoRiskWin () {
         //given
-        Player player = new Player("Игрок", false);
+        Player player = new Player("Игрок1", false);
         Game game = new Game(player, doors);
         //when
         Door door = game.round(0);
@@ -34,20 +30,9 @@ public class GameTest {
     }
 
     @Test
-    void checkNotRiskLose() {
+    void testRiskWin () {
         //given
-        Player player = new Player("Игрок", false);
-        Game game = new Game(player, doors);
-        //when
-        Door door = game.round(1);
-        //then
-        Assertions.assertFalse(door.isPrize());
-    }
-
-    @Test
-    void checkRiskWin () {
-        //given
-        Player player = new Player("Игрок", true);
+        Player player = new Player("Игрок2", true);
         Game game = new Game(player, doors);
         //when
         Door door = game.round(1);
@@ -56,9 +41,20 @@ public class GameTest {
     }
 
     @Test
-    void checkRiskLose () {
+    void testNoRiskLose() {
         //given
-        Player player = new Player("Игрок", true);
+        Player player = new Player("Игрок3", false);
+        Game game = new Game(player, doors);
+        //when
+        Door door = game.round(2);
+        //then
+        Assertions.assertFalse(door.isPrize());
+    }
+
+    @Test
+    void testRiskLose () {
+        //given
+        Player player = new Player("Игрок4", true);
         Game game = new Game(player, doors);
         //when
         Door door = game.round(0);
